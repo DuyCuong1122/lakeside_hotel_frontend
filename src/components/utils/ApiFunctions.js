@@ -8,14 +8,14 @@ export async function addRoom(photo, roomType, roomPrice) {
     formData.append("roomType", roomType);
     formData.append("roomPrice", roomPrice);
 
-    const response = await api.post("/room/add/new-room", formData);
+    const response = await api.post("/rooms/add/new-room", formData);
     return response.status === 201 ? true : false;
 
 }
 
 export async function getRoomTypes() {
     try {
-        const response = await api.get("/room/get/room-types");
+        const response = await api.get("/rooms/get/room-types");
         return response.data;
     }
     catch (error) {

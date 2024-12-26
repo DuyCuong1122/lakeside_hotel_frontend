@@ -18,27 +18,26 @@ function RoomTypeSelector({ handleRoomInputChange, newRoom }) {
 
   const handleAddNewRoomType = () => {
     if (newRoomType !== "") {
-      setRoomTypes([...roomType, newRoomType]);
-      setNewRoomType("");
-      setShowNewRoomForm(false);
+      console.log(newRoomType + " added");
+      setRoomTypes([...roomType, newRoomType]); // Thêm loại phòng mới vào danh sách
+      setNewRoomType(""); // Reset trường input
+      setShowNewRoomTypeInput(false); // Ẩn input để thêm loại phòng mới
     }
   };
 
   return (
     <>
-      {roomType.length > 0 && (
+      {roomType.length >= 0 && (
         <div>
           <select
             name="roomType"
             id="roomType"
             value={newRoom.roomType}
-            onChange={(e) => {
-              if (e.target.value === "Add new") {
-                setShowNewRoomTypeInput(true);
-              } else {
-                handleRoomInputChange(e);
-              }
-            }}
+            onChange={(e) =>
+              e.target.value === "Add new"
+                ? setShowNewRoomTypeInput(true)
+                : handleRoomInputChange(e)
+            }
           >
             <option value={""}>select a room type</option>
             <option value={"Add new"}>Add new</option>
@@ -63,7 +62,6 @@ function RoomTypeSelector({ handleRoomInputChange, newRoom }) {
                 type="button"
                 onClick={handleAddNewRoomType}
               >
-                {" "}
                 Add
               </button>
             </div>

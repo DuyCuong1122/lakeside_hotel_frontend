@@ -18,7 +18,7 @@ const AddRoom = () => {
     let value = e.target.value;
     if (name === "roomPrice") {
       if (!isNaN(value)) {
-        value.parseInt(value);
+        parseInt(value);
       } else {
         value = "";
       }
@@ -55,14 +55,26 @@ const AddRoom = () => {
     } catch (error) {
       setErrorMessage(error.message);
     }
+    setTimeout(() => {
+      setSuccessMessage("");
+      setErrorMessage("");
+    }, 3000);
   };
 
   return (
     <>
-      <section className="container, mt-5 mb-5">
+      <section className="container mt-5 mb-5">
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6">
             <h2 className="mt-5 mb-2"> Add a new room</h2>
+
+            {successMessage && (
+              <div className="alert alert-success">{successMessage}</div>
+            )}
+
+            {errorMessage && (
+              <div className="alert alert-danger">{errorMessage}</div>
+            )}
 
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -81,33 +93,37 @@ const AddRoom = () => {
                 <label htmlFor="roomPrice" className="form-label">
                   Room Price
                 </label>
-                <input
-                  className="form-control"
-                  required
-                  id="roomPrice"
-                  type="number"
-                  name="roomPrice"
-                  value={newRoom.roomPrice}
-                  onchange={handleRoomInputChange}
-                />
+                <div>
+                  <input
+                    className="form-control"
+                    required
+                    id="roomPrice"
+                    type="number"
+                    name="roomPrice"
+                    value={newRoom.roomPrice}
+                    onChange={handleRoomInputChange}
+                  />
+                </div>
               </div>
 
               <div className="mb-3">
                 <label htmlFor="photo" className="form-label">
                   Room photo
                 </label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="photo"
-                  name="photo"
-                  onChange={handleImageChange}
-                />
+                <div>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="photo"
+                    name="photo"
+                    onChange={handleImageChange}
+                  />
+                </div>
                 {imagePreview && (
                   <img
                     src={imagePreview}
                     alt="Preview room photo"
-                    style={{ maxWidth: "400", maxHeight: "400" }}
+                    style={{ maxWidth: "400px", maxHeight: "400px" }}
                     className="mb-3"
                   />
                 )}
